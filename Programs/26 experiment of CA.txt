@@ -1,0 +1,27 @@
+.MODEL SMALL
+.STACK 100H
+
+.DATA
+    NUM1 DW 1234H
+    NUM2 DW 0002H
+    RESULT DD ?
+
+.CODE
+MAIN PROC
+    MOV AX, @DATA
+    MOV DS, AX
+
+    MOV AX, NUM1      ; Load first 16-bit number into AX
+    MOV BX, NUM2      ; Load second 16-bit number into BX
+
+    MUL BX            ; Multiply AX × BX
+                      ; Result is stored in DX:AX
+
+    MOV WORD PTR RESULT, AX
+    MOV WORD PTR RESULT+2, DX
+
+    MOV AH, 4CH       ; Exit to DOS
+    INT 21H
+
+MAIN ENDP
+END MAIN
